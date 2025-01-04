@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import './globals.css';
 
 export const metadata: Metadata = {
   title: "Moises",
@@ -13,7 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main style={{ padding: 32 }}>{children}</main>
+        <main className="min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );
