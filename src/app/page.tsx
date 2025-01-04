@@ -1,7 +1,11 @@
+"use client";
+
+import { Header } from "@/components";
+
 export default function Home() {
   return (
-    <p>
-      <code>Good luck! 🚀</code>
-    </p>
+    <>
+      <Header />
+    </>
   );
 }
