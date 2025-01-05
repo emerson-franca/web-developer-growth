@@ -29,7 +29,7 @@ export const Button = ({
   const renderIcon = (iconName: string) => {
     switch (iconName) {
       case "arrow-right":
-        return <ArrowRight width={20} height={20} />;
+        return <ArrowRight width={24} height={24} />;
       default:
         return null;
     }
