@@ -7,28 +7,19 @@ import { useCallback, useState } from "react";
 import { MenuLinkProps, MenuItem, HeaderProps, DropdownProps } from "@/types";
 import "./styles.css";
 
-const LinkComponent = ({ href, openNewWindow, children, className }: { href: string; openNewWindow?: boolean; children: React.ReactNode; className?: string; }) => (
+const MenuLink = ({ href, active, children, openNewWindow, className }: MenuLinkProps & { className?: string }) => (
   <a
     href={href}
     target={openNewWindow ? "_blank" : undefined}
     rel={openNewWindow ? "noopener noreferrer" : undefined}
-    className={className}
-  >
-    {children}
-  </a>
-);
-
-const MenuLink = ({ href, active, children, openNewWindow }: MenuLinkProps) => (
-  <LinkComponent
-    href={href}
-    openNewWindow={openNewWindow}
     className={cn(
       "menu-link",
-      active ? "menu-link-active" : "menu-link-default"
+      active ? "menu-link-active" : "menu-link-default",
+      className
     )}
   >
     {children}
-  </LinkComponent>
+  </a>
 );
 
 const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
@@ -58,7 +49,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
         >
           {item.dropdown?.map((dropdownItem) => (
             <li key={dropdownItem.id} role="menuitem">
-              <LinkComponent
+              <MenuLink
                 href={dropdownItem.link || "#"}
                 openNewWindow={dropdownItem.openNewWindow}
                 className={cn(
@@ -67,7 +58,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
                 )}
               >
                 {dropdownItem.title}
-              </LinkComponent>
+              </MenuLink>
             </li>
           ))}
         </ul>
@@ -137,12 +128,12 @@ export const Header = ({ globalData }: HeaderProps) => {
             {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
 
-          <LinkComponent
+          <MenuLink
             href="#"
-            className="menu-link hidden md:inline-flex items-center gap-2 px-1 py-2"
+            className="hidden md:inline-flex items-center gap-2 px-1 py-2"
           >
             <span>Login</span>
-          </LinkComponent>
+          </MenuLink>
         </div>
 
         <div
@@ -153,12 +144,12 @@ export const Header = ({ globalData }: HeaderProps) => {
         >
           <div className="px-6 py-4 space-y-4">
             <MenuLinks menu={globalData.menu} isMobile={true} />
-            <LinkComponent
+            <MenuLink
               href="#"
-              className="menu-link inline-flex items-center gap-2 px-1 py-2 fixed bottom-4"
+              className="inline-flex items-center gap-2 px-1 py-2 fixed bottom-4"
             >
               <span>Login</span>
-            </LinkComponent>
+            </MenuLink>
           </div>
         </div>
       </div>
