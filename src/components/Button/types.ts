@@ -1,4 +1,4 @@
-import { Button } from "@/types/index";
+import type { Button } from "@/types/index";
 
 export type ButtonAppearance = "solid" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
@@ -8,7 +8,7 @@ export type ButtonProps = {
   appearance?: ButtonAppearance;
   size?: ButtonSize;
   color?: ButtonColor;
-  href?: string;
   className?: string;
   onClick?: VoidFunction;
-} & Button;
+  href?: string;
+} & Omit<Button, "id" | "url">;

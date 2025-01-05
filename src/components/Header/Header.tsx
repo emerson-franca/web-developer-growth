@@ -5,8 +5,9 @@ import { useMenuToggle } from "@/hooks/useMenuToggle";
 import { useMaxHeight } from "@/hooks/useMaxHeight";
 import { cn } from "@/utils/cn";
 import { useCallback, useState } from "react";
-import { MenuLinkProps, MenuItem, HeaderProps, DropdownProps } from "@/types";
+import { MenuLinkProps, HeaderProps, DropdownProps } from "./types";
 import { styles } from "./styles";
+import type { MenuItem } from "@/types/index";
 
 const MenuLink = ({
   href,
