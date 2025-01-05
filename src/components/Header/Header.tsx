@@ -6,7 +6,7 @@ import { useMaxHeight } from "@/hooks/useMaxHeight";
 import { cn } from "@/utils/cn";
 import { useCallback, useState } from "react";
 import { MenuLinkProps, MenuItem, HeaderProps, DropdownProps } from "@/types";
-import "./styles.css";
+import { styles } from "./styles";
 
 const MenuLink = ({
   href,
@@ -20,8 +20,8 @@ const MenuLink = ({
     target={openNewWindow ? "_blank" : undefined}
     rel={openNewWindow ? "noopener noreferrer" : undefined}
     className={cn(
-      "menu-link",
-      active ? "menu-link-active" : "menu-link-default",
+      styles.menuLink,
+      active ? styles.menuLinkActive : styles.menuLinkDefault,
       className
     )}
   >
@@ -35,7 +35,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
 
   return (
     <div
-      className="relative"
+      className="relative z-10"
       role="menu"
       aria-label={`${item.title} menu`}
       onMouseEnter={() => !isMobile && onToggle()}
@@ -44,8 +44,10 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
       <button
         onClick={() => isMobile && onToggle()}
         className={cn(
-          "menu-link",
-          item.title === "Modules" ? "menu-link-active" : "menu-link-default",
+          styles.menuLink,
+          item.title === "Modules"
+            ? styles.menuLinkActive
+            : styles.menuLinkDefault,
           isMobile && "cursor-default w-full text-left"
         )}
         aria-haspopup="true"
@@ -56,7 +58,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
       {hasDropdown && (
         <ul
           className={cn(
-            "dropdown-menu",
+            styles.dropdown.menu,
             !isMobile && !isOpen && "md:opacity-0 md:invisible",
             !isMobile && isOpen && "md:opacity-100 md:visible"
           )}
@@ -68,7 +70,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
                 href={dropdownItem.link || "#"}
                 openNewWindow={dropdownItem.openNewWindow}
                 className={cn(
-                  "dropdown-item",
+                  styles.dropdown.item,
                   !isMobile && "px-4 hover:bg-gray-800"
                 )}
               >
@@ -96,16 +98,9 @@ const MenuLinks = ({
   }, []);
 
   return (
-    <ul
-      className={cn(
-        "flex flex-col md:flex-row",
-        isMobile ? "space-y-4" : "md:space-x-6",
-        "w-full md:w-auto"
-      )}
-      role="menubar"
-    >
+    <ul className={cn(styles.mobile.menuList)} role="menubar">
       {menu.map((item) => (
-        <li key={item.id} role="none">
+        <li className="p-3" key={item.id} role="menuitem">
           {item.dropdown && item.dropdown.length > 0 ? (
             <Dropdown
               item={item}
@@ -129,14 +124,14 @@ const MenuLinks = ({
 
 const LoginLink = ({ loginItem }: { loginItem: MenuItem | undefined }) =>
   loginItem ? (
-    <div className="inline-flex items-center py-2">
+    <div className={styles.loginLink.wrapper}>
       <MenuLink
         active
         href={loginItem.link || "#"}
         openNewWindow={loginItem.openNewWindow}
-        className="inline-flex items-center gap-2 px-1 py-2"
+        className={styles.loginLink.link}
       >
-        <span className="font-semibold">{loginItem.title}</span>
+        <span className={styles.loginLink.text}>{loginItem.title}</span>
       </MenuLink>
       <ArrowRight width={24} height={24} />
     </div>
@@ -152,41 +147,41 @@ export const Header = ({ globalData }: HeaderProps) => {
 
   return (
     <nav
-      className="relative font-sans"
+      className={styles.nav.wrapper}
       role="navigation"
       aria-label="Main Navigation"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-[70px] md:h-[90px]">
+      <div className={styles.nav.container}>
+        <div className={styles.nav.inner}>
           <Logo />
 
-          <div className="hidden md:flex items-center space-x-6">
+          <div className={styles.nav.desktopMenu}>
             <MenuLinks menu={menuWithoutLogin} />
           </div>
 
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2"
+            className={styles.nav.mobileButton}
             aria-expanded={isMenuOpen}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
 
-          <div className="hidden md:inline-flex">
+          <div className={styles.nav.loginWrapper}>
             <LoginLink loginItem={loginItem} />
           </div>
         </div>
 
         <div
           className={cn(
-            "mobile-menu",
+            styles.mobile.menu,
             isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
           )}
         >
-          <div className="px-6 py-4 space-y-4">
+          <div className={styles.mobileMenu.wrapper}>
             <MenuLinks menu={menuWithoutLogin} isMobile={true} />
-            <div className="fixed bottom-0 left-0 right-0 pl-6">
+            <div className={styles.mobileMenu.loginContainer}>
               <LoginLink loginItem={loginItem} />
             </div>
           </div>
