@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo, MenuIcon, CloseIcon, ArrowRight } from "@/components/Icons";
+import { Logo, MenuIcon, CloseIcon } from "@/components/Icons";
 import { useMenuToggle } from "@/hooks/useMenuToggle";
 import { cn } from "@/utils/cn";
 import { useState } from "react";
@@ -34,7 +34,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
   const hasDropdown = item.dropdown && item.dropdown.length > 0;
 
   return (
-    <li className="relative">
+    <div className="relative" role="menu" aria-label={`${item.title} menu`}>
       <button
         onClick={() => !isMobile && onToggle()}
         className={cn(
@@ -57,7 +57,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
           )}
         >
           {item.dropdown?.map((dropdownItem) => (
-            <li key={dropdownItem.id}>
+            <li key={dropdownItem.id} role="menuitem">
               <LinkComponent
                 href={dropdownItem.link || "#"}
                 openNewWindow={dropdownItem.openNewWindow}
@@ -72,7 +72,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
           ))}
         </ul>
       )}
-    </li>
+    </div>
   );
 };
 
@@ -84,23 +84,26 @@ const MenuLinks = ({ menu, isMobile }: { menu: MenuItem[]; isMobile?: boolean })
   };
 
   return (
-    <ul className={cn(
-      "flex flex-col md:flex-row",
-      isMobile ? "space-y-4" : "md:space-x-6",
-      "w-full md:w-auto"
-    )}>
+    <ul
+      className={cn(
+        "flex flex-col md:flex-row",
+        isMobile ? "space-y-4" : "md:space-x-6",
+        "w-full md:w-auto"
+      )}
+      role="menubar"
+    >
       {menu.map((item) => (
-        <li key={item.id} className="w-full md:w-auto">
+        <li key={item.id} role="none">
           {item.dropdown && item.dropdown.length > 0 ? (
-            <Dropdown 
-              item={item} 
+            <Dropdown
+              item={item}
               isMobile={isMobile}
               isOpen={openDropdownId === item.id}
               onToggle={() => handleDropdownToggle(item.id)}
             />
           ) : (
-            <MenuLink 
-              href={item.link || "#"} 
+            <MenuLink
+              href={item.link || "#"}
               openNewWindow={item.openNewWindow}
             >
               {item.title}
@@ -116,11 +119,11 @@ export const Header = ({ globalData }: HeaderProps) => {
   const { isMenuOpen, toggleMenu } = useMenuToggle();
 
   return (
-    <nav className="relative font-sans">
+    <nav className="relative font-sans" role="navigation" aria-label="Main Navigation">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Logo />
-          
+
           <div className="hidden md:flex items-center space-x-6">
             <MenuLinks menu={globalData.menu} />
           </div>
