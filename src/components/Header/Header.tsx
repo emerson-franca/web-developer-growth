@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo, MenuIcon, CloseIcon } from "@/components/Icons";
+import { Logo, MenuIcon, CloseIcon, ArrowRight } from "@/components/Icons";
 import { useMenuToggle } from "@/hooks/useMenuToggle";
 import { useMaxHeight } from "@/hooks/useMaxHeight";
 import { cn } from "@/utils/cn";
@@ -8,7 +8,13 @@ import { useCallback, useState } from "react";
 import { MenuLinkProps, MenuItem, HeaderProps, DropdownProps } from "@/types";
 import "./styles.css";
 
-const MenuLink = ({ href, active, children, openNewWindow, className }: MenuLinkProps & { className?: string }) => (
+const MenuLink = ({
+  href,
+  active,
+  children,
+  openNewWindow,
+  className,
+}: MenuLinkProps & { className?: string }) => (
   <a
     href={href}
     target={openNewWindow ? "_blank" : undefined}
@@ -76,7 +82,13 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
   );
 };
 
-const MenuLinks = ({ menu, isMobile }: { menu: MenuItem[]; isMobile?: boolean }) => {
+const MenuLinks = ({
+  menu,
+  isMobile,
+}: {
+  menu: MenuItem[];
+  isMobile?: boolean;
+}) => {
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
 
   const handleDropdownToggle = useCallback((itemId: number) => {
@@ -115,28 +127,37 @@ const MenuLinks = ({ menu, isMobile }: { menu: MenuItem[]; isMobile?: boolean })
   );
 };
 
-const LoginLink = ({ loginItem }: { loginItem: MenuItem | undefined }) => (
+const LoginLink = ({ loginItem }: { loginItem: MenuItem | undefined }) =>
   loginItem ? (
-    <MenuLink
-      href={loginItem.link || "#"}
-      openNewWindow={loginItem.openNewWindow}
-      className="inline-flex items-center gap-2 px-1 py-2"
-    >
-      <span>{loginItem.title}</span>
-    </MenuLink>
-  ) : null
-);
+    <div className="inline-flex items-center py-2">
+      <MenuLink
+        active
+        href={loginItem.link || "#"}
+        openNewWindow={loginItem.openNewWindow}
+        className="inline-flex items-center gap-2 px-1 py-2"
+      >
+        <span className="font-semibold">{loginItem.title}</span>
+      </MenuLink>
+      <ArrowRight width={24} height={24} />
+    </div>
+  ) : null;
 
 export const Header = ({ globalData }: HeaderProps) => {
   const { isMenuOpen, toggleMenu } = useMenuToggle();
 
-  const loginItem = globalData.menu.find(item => item.title === 'Login');
-  const menuWithoutLogin = globalData.menu.filter(item => item.title !== 'Login');
+  const loginItem = globalData.menu.find((item) => item.title === "Login");
+  const menuWithoutLogin = globalData.menu.filter(
+    (item) => item.title !== "Login"
+  );
 
   return (
-    <nav className="relative font-sans" role="navigation" aria-label="Main Navigation">
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+    <nav
+      className="relative font-sans"
+      role="navigation"
+      aria-label="Main Navigation"
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-[70px] md:h-[90px]">
           <Logo />
 
           <div className="hidden md:flex items-center space-x-6">
@@ -165,7 +186,7 @@ export const Header = ({ globalData }: HeaderProps) => {
         >
           <div className="px-6 py-4 space-y-4">
             <MenuLinks menu={menuWithoutLogin} isMobile={true} />
-            <div className="fixed bottom-4">
+            <div className="fixed bottom-0 left-0 right-0 pl-6">
               <LoginLink loginItem={loginItem} />
             </div>
           </div>
