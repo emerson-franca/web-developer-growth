@@ -1,6 +1,6 @@
 export const styles = {
   section:
-    "relative min-h-[90vh] flex items-center bg-[url('/assets/bg-moises-developer.svg')] before:absolute before:inset-y-0 before:right-0 before:w-[30%] before:bg-gradient-to-l before:from-black before:to-transparent",
+    "flex items-center bg-no-repeat bg-[url('/assets/bg-moises-developer.svg')] before:absolute before:inset-y-0 before:right-0 before:w-[30%] before:bg-gradient-to-l before:from-black before:to-transparent",
   backgroundWrapper: "absolute inset-10 overflow-hidden",
   backgroundImage: "object-cover",
   container: "relative max-w-7xl mx-auto px-6 py-24 md:py-32",

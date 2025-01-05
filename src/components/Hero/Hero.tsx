@@ -1,5 +1,5 @@
 import { PlayIcon } from "@/components/Icons";
-import { HeroProps } from "@/types/hero";
+import { HeroProps } from "./types";
 import { Button } from "@/components/Button";
 import { styles } from "./styles";
 
