@@ -115,8 +115,23 @@ const MenuLinks = ({ menu, isMobile }: { menu: MenuItem[]; isMobile?: boolean })
   );
 };
 
+const LoginLink = ({ loginItem }: { loginItem: MenuItem | undefined }) => (
+  loginItem ? (
+    <MenuLink
+      href={loginItem.link || "#"}
+      openNewWindow={loginItem.openNewWindow}
+      className="inline-flex items-center gap-2 px-1 py-2"
+    >
+      <span>{loginItem.title}</span>
+    </MenuLink>
+  ) : null
+);
+
 export const Header = ({ globalData }: HeaderProps) => {
   const { isMenuOpen, toggleMenu } = useMenuToggle();
+
+  const loginItem = globalData.menu.find(item => item.title === 'Login');
+  const menuWithoutLogin = globalData.menu.filter(item => item.title !== 'Login');
 
   return (
     <nav className="relative font-sans" role="navigation" aria-label="Main Navigation">
@@ -125,7 +140,7 @@ export const Header = ({ globalData }: HeaderProps) => {
           <Logo />
 
           <div className="hidden md:flex items-center space-x-6">
-            <MenuLinks menu={globalData.menu} />
+            <MenuLinks menu={menuWithoutLogin} />
           </div>
 
           <button
@@ -137,12 +152,9 @@ export const Header = ({ globalData }: HeaderProps) => {
             {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
 
-          <MenuLink
-            href="#"
-            className="hidden md:inline-flex items-center gap-2 px-1 py-2"
-          >
-            <span>Login</span>
-          </MenuLink>
+          <div className="hidden md:inline-flex">
+            <LoginLink loginItem={loginItem} />
+          </div>
         </div>
 
         <div
@@ -152,13 +164,10 @@ export const Header = ({ globalData }: HeaderProps) => {
           )}
         >
           <div className="px-6 py-4 space-y-4">
-            <MenuLinks menu={globalData.menu} isMobile={true} />
-            <MenuLink
-              href="#"
-              className="inline-flex items-center gap-2 px-1 py-2 fixed bottom-4"
-            >
-              <span>Login</span>
-            </MenuLink>
+            <MenuLinks menu={menuWithoutLogin} isMobile={true} />
+            <div className="fixed bottom-4">
+              <LoginLink loginItem={loginItem} />
+            </div>
           </div>
         </div>
       </div>
