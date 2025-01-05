@@ -3,7 +3,7 @@
 import { Logo, MenuIcon, CloseIcon } from "@/components/Icons";
 import { useMenuToggle } from "@/hooks/useMenuToggle";
 import { cn } from "@/utils/cn";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { MenuLinkProps, MenuItem, HeaderProps, DropdownProps } from "@/types";
 
 const LinkComponent = ({ href, openNewWindow, children, className }: { href: string; openNewWindow?: boolean; children: React.ReactNode; className?: string; }) => (
@@ -79,10 +79,10 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
 const MenuLinks = ({ menu, isMobile }: { menu: MenuItem[]; isMobile?: boolean }) => {
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
 
-  const handleDropdownToggle = (itemId: number) => {
-    setOpenDropdownId(openDropdownId === itemId ? null : itemId);
-  };
-
+  const handleDropdownToggle = useCallback((itemId: number) => {
+    setOpenDropdownId((prev) => (prev === itemId ? null : itemId));
+  }, []);
+  
   return (
     <ul
       className={cn(
