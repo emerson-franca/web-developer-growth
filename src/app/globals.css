@@ -8,10 +8,16 @@
   }
 }
 
-
 @font-face {
   font-family: 'Articulat CF';
   src: url('../fonts/ArticulatCF-Normal.otf') format('opentype');
-  font-weight: normal;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Articulat CF';
+  src: url('../fonts/ArticulatCF-Medium.otf') format('opentype');
+  font-weight: 600;
   font-style: normal;
 }
