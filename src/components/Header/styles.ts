@@ -26,7 +26,7 @@ const mobile = {
 
 const nav = {
   wrapper: "relative font-sans",
-  container: "max-w-7xl mx-auto px-6",
+  container: "max-w-7xl mx-auto px-6  fixed top-0 bg-transparent z-50 w-full",
   inner: "flex items-center justify-between h-[70px] md:h-[90px]",
   desktopMenu: "hidden md:flex items-center gap-6",
   mobileButton: "md:hidden p-2",
