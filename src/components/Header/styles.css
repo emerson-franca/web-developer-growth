@@ -1,0 +1,29 @@
+
+@tailwind components;
+
+
+@layer components {
+  .menu-link {
+    @apply text-sm font-medium transition-colors hover:text-gray-300;
+  }
+
+  .menu-link-default {
+    @apply text-gray-400;
+  }
+
+  .menu-link-active {
+    @apply text-white;
+  }
+
+  .dropdown-menu {
+    @apply md:absolute md:left-0 md:mt-2 md:w-48 md:bg-black md:border md:border-gray-800 md:rounded-md md:shadow-lg md:transition-all md:duration-200;
+  }
+
+  .dropdown-item {
+    @apply block py-2 text-sm text-gray-400 hover:text-white;
+  }
+
+  .mobile-menu {
+    @apply md:hidden absolute left-0 right-0 top-full bg-black border-t border-gray-800 transition-all duration-300 h-[calc(100vh-72px)];
+  }
+}

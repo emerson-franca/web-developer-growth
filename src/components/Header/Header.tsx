@@ -5,6 +5,7 @@ import { useMenuToggle } from "@/hooks/useMenuToggle";
 import { cn } from "@/utils/cn";
 import { useCallback, useState } from "react";
 import { MenuLinkProps, MenuItem, HeaderProps, DropdownProps } from "@/types";
+import "./styles.css";
 
 const LinkComponent = ({ href, openNewWindow, children, className }: { href: string; openNewWindow?: boolean; children: React.ReactNode; className?: string; }) => (
   <a
@@ -22,8 +23,8 @@ const MenuLink = ({ href, active, children, openNewWindow }: MenuLinkProps) => (
     href={href}
     openNewWindow={openNewWindow}
     className={cn(
-      "text-sm font-medium transition-colors hover:text-gray-300",
-      active ? "text-white" : "text-gray-400"
+      "menu-link",
+      active ? "menu-link-active" : "menu-link-default"
     )}
   >
     {children}
@@ -38,8 +39,8 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
       <button
         onClick={() => !isMobile && onToggle()}
         className={cn(
-          "text-sm font-medium transition-colors hover:text-gray-300",
-          item.title === "Modules" ? "text-white" : "text-gray-400",
+          "menu-link",
+          item.title === "Modules" ? "menu-link-active" : "menu-link-default",
           isMobile && "cursor-default w-full text-left"
         )}
         aria-haspopup="true"
@@ -50,8 +51,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
       {hasDropdown && (
         <ul
           className={cn(
-            "md:absolute md:left-0 md:mt-2 md:w-48 md:bg-black md:border md:border-gray-800 md:rounded-md md:shadow-lg",
-            "md:transition-all md:duration-200",
+            "dropdown-menu",
             !isMobile && !isOpen && "md:opacity-0 md:invisible",
             !isMobile && isOpen && "md:opacity-100 md:visible"
           )}
@@ -62,7 +62,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
                 href={dropdownItem.link || "#"}
                 openNewWindow={dropdownItem.openNewWindow}
                 className={cn(
-                  "block py-2 text-sm text-gray-400 hover:text-white",
+                  "dropdown-item",
                   !isMobile && "px-4 hover:bg-gray-800"
                 )}
               >
@@ -139,7 +139,7 @@ export const Header = ({ globalData }: HeaderProps) => {
 
           <LinkComponent
             href="#"
-            className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-white hover:text-gray-300 transition-colors px-1 py-2"
+            className="menu-link hidden md:inline-flex items-center gap-2 px-1 py-2"
           >
             <span>Login</span>
           </LinkComponent>
@@ -147,7 +147,7 @@ export const Header = ({ globalData }: HeaderProps) => {
 
         <div
           className={cn(
-            "md:hidden absolute left-0 right-0 top-full bg-black border-t border-gray-800 transition-all duration-300 h-[calc(100vh-72px)]",
+            "mobile-menu",
             isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
           )}
         >
@@ -155,7 +155,7 @@ export const Header = ({ globalData }: HeaderProps) => {
             <MenuLinks menu={globalData.menu} isMobile={true} />
             <LinkComponent
               href="#"
-              className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-gray-300 transition-colors px-1 py-2 fixed bottom-4"
+              className="menu-link inline-flex items-center gap-2 px-1 py-2 fixed bottom-4"
             >
               <span>Login</span>
             </LinkComponent>
