@@ -2,6 +2,7 @@
 
 import { Logo, MenuIcon, CloseIcon } from "@/components/Icons";
 import { useMenuToggle } from "@/hooks/useMenuToggle";
+import { useMaxHeight } from "@/hooks/useMaxHeight";
 import { cn } from "@/utils/cn";
 import { useCallback, useState } from "react";
 import { MenuLinkProps, MenuItem, HeaderProps, DropdownProps } from "@/types";
@@ -24,11 +25,18 @@ const MenuLink = ({ href, active, children, openNewWindow, className }: MenuLink
 
 const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
   const hasDropdown = item.dropdown && item.dropdown.length > 0;
+  const maxHeight = useMaxHeight();
 
   return (
-    <div className="relative" role="menu" aria-label={`${item.title} menu`}>
+    <div
+      className="relative"
+      role="menu"
+      aria-label={`${item.title} menu`}
+      onMouseEnter={() => !isMobile && onToggle()}
+      onMouseLeave={() => !isMobile && isOpen && onToggle()}
+    >
       <button
-        onClick={() => !isMobile && onToggle()}
+        onClick={() => isMobile && onToggle()}
         className={cn(
           "menu-link",
           item.title === "Modules" ? "menu-link-active" : "menu-link-default",
@@ -46,6 +54,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
             !isMobile && !isOpen && "md:opacity-0 md:invisible",
             !isMobile && isOpen && "md:opacity-100 md:visible"
           )}
+          style={maxHeight ? { maxHeight: `${maxHeight}px` } : undefined}
         >
           {item.dropdown?.map((dropdownItem) => (
             <li key={dropdownItem.id} role="menuitem">
@@ -73,7 +82,7 @@ const MenuLinks = ({ menu, isMobile }: { menu: MenuItem[]; isMobile?: boolean })
   const handleDropdownToggle = useCallback((itemId: number) => {
     setOpenDropdownId((prev) => (prev === itemId ? null : itemId));
   }, []);
-  
+
   return (
     <ul
       className={cn(
