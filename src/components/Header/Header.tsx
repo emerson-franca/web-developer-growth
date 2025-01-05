@@ -3,37 +3,116 @@
 import { Logo, MenuIcon, CloseIcon, ArrowRight } from "@/components/Icons";
 import { useMenuToggle } from "@/hooks/useMenuToggle";
 import { cn } from "@/utils/cn";
+import { useState } from "react";
+import { MenuLinkProps, MenuItem, HeaderProps, DropdownProps } from "@/types";
 
-interface MenuLinkProps {
-  href: string;
-  active?: boolean;
-  children: React.ReactNode;
-}
-
-const MenuLink = ({ href, active, children }: MenuLinkProps) => (
+const LinkComponent = ({ href, openNewWindow, children, className }: { href: string; openNewWindow?: boolean; children: React.ReactNode; className?: string; }) => (
   <a
     href={href}
+    target={openNewWindow ? "_blank" : undefined}
+    rel={openNewWindow ? "noopener noreferrer" : undefined}
+    className={className}
+  >
+    {children}
+  </a>
+);
+
+const MenuLink = ({ href, active, children, openNewWindow }: MenuLinkProps) => (
+  <LinkComponent
+    href={href}
+    openNewWindow={openNewWindow}
     className={cn(
       "text-sm font-medium transition-colors hover:text-gray-300",
       active ? "text-white" : "text-gray-400"
     )}
   >
     {children}
-  </a>
+  </LinkComponent>
 );
 
-const MenuLinks = () => (
-  <div className="flex md:flex-row flex-col space-y-4 md:space-y-0 md:space-x-6">
-    <MenuLink href="#" active>
-      Modules
-    </MenuLink>
-    <MenuLink href="#">Resources</MenuLink>
-    <MenuLink href="#">Pricing</MenuLink>
-    <MenuLink href="#">Contact sales</MenuLink>
-  </div>
-);
+const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
+  const hasDropdown = item.dropdown && item.dropdown.length > 0;
 
-export const Header = () => {
+  return (
+    <li className="relative">
+      <button
+        onClick={() => !isMobile && onToggle()}
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-gray-300",
+          item.title === "Modules" ? "text-white" : "text-gray-400",
+          isMobile && "cursor-default w-full text-left"
+        )}
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+      >
+        {item.title}
+      </button>
+      {hasDropdown && (
+        <ul
+          className={cn(
+            "md:absolute md:left-0 md:mt-2 md:w-48 md:bg-black md:border md:border-gray-800 md:rounded-md md:shadow-lg",
+            "md:transition-all md:duration-200",
+            !isMobile && !isOpen && "md:opacity-0 md:invisible",
+            !isMobile && isOpen && "md:opacity-100 md:visible"
+          )}
+        >
+          {item.dropdown?.map((dropdownItem) => (
+            <li key={dropdownItem.id}>
+              <LinkComponent
+                href={dropdownItem.link || "#"}
+                openNewWindow={dropdownItem.openNewWindow}
+                className={cn(
+                  "block py-2 text-sm text-gray-400 hover:text-white",
+                  !isMobile && "px-4 hover:bg-gray-800"
+                )}
+              >
+                {dropdownItem.title}
+              </LinkComponent>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+};
+
+const MenuLinks = ({ menu, isMobile }: { menu: MenuItem[]; isMobile?: boolean }) => {
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+
+  const handleDropdownToggle = (itemId: number) => {
+    setOpenDropdownId(openDropdownId === itemId ? null : itemId);
+  };
+
+  return (
+    <ul className={cn(
+      "flex flex-col md:flex-row",
+      isMobile ? "space-y-4" : "md:space-x-6",
+      "w-full md:w-auto"
+    )}>
+      {menu.map((item) => (
+        <li key={item.id} className="w-full md:w-auto">
+          {item.dropdown && item.dropdown.length > 0 ? (
+            <Dropdown 
+              item={item} 
+              isMobile={isMobile}
+              isOpen={openDropdownId === item.id}
+              onToggle={() => handleDropdownToggle(item.id)}
+            />
+          ) : (
+            <MenuLink 
+              href={item.link || "#"} 
+              openNewWindow={item.openNewWindow}
+            >
+              {item.title}
+            </MenuLink>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export const Header = ({ globalData }: HeaderProps) => {
   const { isMenuOpen, toggleMenu } = useMenuToggle();
 
   return (
@@ -43,7 +122,7 @@ export const Header = () => {
           <Logo />
           
           <div className="hidden md:flex items-center space-x-6">
-            <MenuLinks />
+            <MenuLinks menu={globalData.menu} />
           </div>
 
           <button
@@ -55,13 +134,12 @@ export const Header = () => {
             {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
 
-          <a
+          <LinkComponent
             href="#"
             className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-white hover:text-gray-300 transition-colors px-1 py-2"
           >
             <span>Login</span>
-            <ArrowRight className="w-5 h-5" />
-          </a>
+          </LinkComponent>
         </div>
 
         <div
@@ -71,14 +149,13 @@ export const Header = () => {
           )}
         >
           <div className="px-6 py-4 space-y-4">
-            <MenuLinks />
-            <a
+            <MenuLinks menu={globalData.menu} isMobile={true} />
+            <LinkComponent
               href="#"
               className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-gray-300 transition-colors px-1 py-2 fixed bottom-4"
             >
               <span>Login</span>
-              <ArrowRight className="w-5 h-5" />
-            </a>
+            </LinkComponent>
           </div>
         </div>
       </div>
