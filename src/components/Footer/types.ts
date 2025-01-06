@@ -1,6 +1,14 @@
 import type { MenuItem } from "@/types/index";
 
-export interface FooterProps {
+export type SocialKeys =
+  | "facebook"
+  | "instagram"
+  | "twitter"
+  | "linkedIn"
+  | "youTube"
+  | "tikTok";
+
+export type FooterProps = {
   footerMenu: MenuItem[];
   copyright: string;
   helpText: string;
@@ -9,12 +17,5 @@ export interface FooterProps {
     color: string;
   };
   currentLocale: string;
-  social: {
-    facebook: string;
-    instagram: string;
-    twitter: string;
-    linkedIn: string;
-    youTube: string;
-    tikTok: string;
-  };
-}
+  social: Record<SocialKeys, string>;
+};

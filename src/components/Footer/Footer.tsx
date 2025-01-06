@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { styles } from "./styles";
-import type { FooterProps } from "./types";
+import type { FooterProps, SocialKeys } from "./types";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import {
   Facebook,
@@ -25,15 +25,13 @@ export const Footer = ({
 }: FooterProps) => {
   const router = useRouter();
 
-  const SOCIAL_ICON: {
-    [key: string]: JSX.Element;
-  } = {
+  const SOCIAL_ICON: Record<SocialKeys, JSX.Element> = {
     facebook: <Facebook width={24} height={24} />,
     instagram: <Instagram width={24} height={24} />,
     twitter: <Twitter width={24} height={24} />,
+    linkedIn: <Linkedin width={24} height={24} />,
     youTube: <Youtube width={24} height={24} />,
     tikTok: <TikTok width={24} height={24} />,
-    linkedIn: <Linkedin width={24} height={24} />,
   };
 
   const handleLocaleChange = (newLocale: string) => {
@@ -57,11 +55,11 @@ export const Footer = ({
               {Object.keys(social).map((key) => (
                 <Link
                   key={key}
-                  href={social[key] || "#"}
+                  href={social[key as SocialKeys] || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {SOCIAL_ICON[key]}
+                  {SOCIAL_ICON[key as SocialKeys]}
                 </Link>
               ))}
             </div>
