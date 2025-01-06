@@ -1,7 +1,7 @@
 const base = {
   menuLink: "text-sm font-medium transition-colors hover:text-gray-300",
-  menuLinkDefault: "text-gray-400",
-  menuLinkActive: "text-white",
+  menuLinkDefault: "text-[#969696] leading-[1.05rem]",
+  menuLinkActive: "text-white leading-[1.05rem]",
 } as const;
 
 const dropdown = {
@@ -12,7 +12,7 @@ const dropdown = {
     scrollbar scrollbar-thin scrollbar-track-gray-900 scrollbar-thumb-gray-600
     hover:scrollbar-thumb-gray-500
   `,
-  item: "block py-2 text-sm text-gray-400 hover:text-white",
+  item: "block py-2 text-sm text-[#969696] leading-[1.05rem] hover:text-white",
 } as const;
 
 const mobile = {

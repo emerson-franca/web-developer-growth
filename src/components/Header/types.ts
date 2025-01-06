@@ -1,4 +1,4 @@
-import type { GlobalData, MenuItem } from "@/types/index";
+import type { MenuItem } from "@/types/index";
 import { ReactNode } from "react";
 
 export type MenuLinkProps = {
@@ -6,15 +6,15 @@ export type MenuLinkProps = {
   active?: boolean;
   children: ReactNode;
   openNewWindow?: boolean;
-}
+};
 
 export type HeaderProps = {
-  globalData: GlobalData;
-}
+  menu: MenuItem[];
+};
 
 export type DropdownProps = {
   item: MenuItem;
   isMobile?: boolean;
   isOpen: boolean;
   onToggle: () => void;
-}
+};

@@ -138,13 +138,11 @@ const LoginLink = ({ loginItem }: { loginItem: MenuItem | undefined }) =>
     </div>
   ) : null;
 
-export const Header = ({ globalData }: HeaderProps) => {
+export const Header = ({ menu }: HeaderProps) => {
   const { isMenuOpen, toggleMenu } = useMenuToggle();
 
-  const loginItem = globalData.menu.find((item) => item.title === "Login");
-  const menuWithoutLogin = globalData.menu.filter(
-    (item) => item.title !== "Login"
-  );
+  const loginItem = menu.find((item) => item.title === "Login");
+  const menuWithoutLogin = menu.filter((item) => item.title !== "Login");
 
   return (
     <nav
