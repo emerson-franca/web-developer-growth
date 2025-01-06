@@ -11,7 +11,7 @@ export const styles = {
   linksList: "space-y-4",
   link: "text-secondary hover:text-white transition-colors",
   bottomBar:
-    "mt-16 flex flex-col  md:flex-row justify-between gap-4 text-secondary border-t border-separator pt-8",
+    "mt-16 flex flex-col-reverse md:flex-row justify-between gap-4 text-secondary border-t border-separator pt-8",
   copyright: "text-light font-medium text-base",
   status: "flex items-center gap-2",
   statusDot: "w-2 h-2 rounded-full",
