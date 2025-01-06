@@ -143,6 +143,9 @@ export const Header = ({ menu }: HeaderProps) => {
   const { isMenuOpen, toggleMenu } = useMenuToggle();
   const isScrolled = useScroll(50);
 
+  const loginItem = menu.find((item) => item.title === "Login");
+  const menuWithoutLogin = menu.filter((item) => item.title !== "Login");
+
   return (
     <nav
       className={cn(styles.nav.wrapper)}
@@ -159,7 +162,7 @@ export const Header = ({ menu }: HeaderProps) => {
           <Logo />
 
           <div className={styles.nav.desktopMenu}>
-            <MenuLinks menu={menu} />
+            <MenuLinks menu={menuWithoutLogin} />
           </div>
 
           <button
@@ -172,9 +175,7 @@ export const Header = ({ menu }: HeaderProps) => {
           </button>
 
           <div className={styles.nav.loginWrapper}>
-            <LoginLink
-              loginItem={menu.find((item) => item.title === "Login")}
-            />
+            <LoginLink loginItem={loginItem} />
           </div>
         </div>
 
@@ -185,11 +186,9 @@ export const Header = ({ menu }: HeaderProps) => {
           )}
         >
           <div className={styles.mobileMenu.wrapper}>
-            <MenuLinks menu={menu} isMobile={true} />
+            <MenuLinks menu={menuWithoutLogin} isMobile={true} />
             <div className={styles.mobileMenu.loginContainer}>
-              <LoginLink
-                loginItem={menu.find((item) => item.title === "Login")}
-              />
+              <LoginLink loginItem={loginItem} />
             </div>
           </div>
         </div>

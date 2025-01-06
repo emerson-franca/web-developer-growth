@@ -21,7 +21,8 @@ const mobile = {
     overflow-y-auto scrollbar scrollbar-thin scrollbar-track-gray-900 
     scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 z-10
   `,
-  menuList: "flex flex-col md:flex-row gap-[1.25rem] w-full md:w-auto",
+  menuList:
+    "flex flex-col md:flex-row gap-[1.25rem] md:gap-[2.75rem] w-full md:w-auto",
 } as const;
 
 const nav = {
