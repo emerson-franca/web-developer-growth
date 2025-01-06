@@ -4,7 +4,7 @@ export const styles = {
   container: "max-w-7xl mx-auto ",
   content: "flex flex-col md:flex-row justify-between gap-8 relative",
   bgOverlay:
-    "bg-[radial-gradient(50%_50%_at_50%_50%,_#1040FF_0%,_rgba(1,_1,_1,_0)_100%)] bg-opacity-2 absolute inset-0 opacity-20",
+    "block md:hidden md:bg-[radial-gradient(50%_50%_at_50%_50%,_#1040FF_0%,_rgba(1,_1,_1,_0)_100%)] bg-opacity-2 absolute inset-0 opacity-20",
   nav: "flex flex-col flex-wrap md:flex-row gap-8 md:gap-[100px]",
   section: "flex-1",
   sectionTitle: "uppercase tracking-[0.2em] mb-5 text-light font-semibold",
