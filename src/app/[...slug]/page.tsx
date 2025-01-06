@@ -29,9 +29,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string[] };
-}): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { slug } = params;
   const locale = slug[0];
 
