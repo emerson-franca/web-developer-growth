@@ -50,7 +50,7 @@ const Dropdown = ({ item, isMobile, isOpen, onToggle }: DropdownProps) => {
           item.title === "Modules"
             ? styles.menuLinkActive
             : styles.menuLinkDefault,
-          isMobile && "cursor-default w-full text-left"
+          isMobile && "cursor-default w-full text-left mb-4 text-white"
         )}
         aria-haspopup="true"
         aria-expanded={isOpen}
@@ -102,7 +102,7 @@ const MenuLinks = ({
   return (
     <ul className={cn(styles.mobile.menuList)} role="menubar">
       {menu.map((item) => (
-        <li className="p-3" key={item.id} role="menuitem">
+        <li key={item.id} role="menuitem">
           {item.dropdown && item.dropdown.length > 0 ? (
             <Dropdown
               item={item}
@@ -149,7 +149,12 @@ export const Header = ({ menu }: HeaderProps) => {
       role="navigation"
       aria-label="Main Navigation"
     >
-      <div className={cn(styles.nav.container, isScrolled && "bg-black transition-colors duration-300")}>
+      <div
+        className={cn(
+          styles.nav.container,
+          isScrolled && "bg-black transition-colors duration-300"
+        )}
+      >
         <div className={styles.nav.inner}>
           <Logo />
 
