@@ -42,7 +42,7 @@ const loginLink = {
 
 const mobileMenu = {
   wrapper: "px-6 py-4 space-y-4",
-  loginContainer: "fixed bottom-0 left-0 right-0 pl-6",
+  loginContainer: "fixed bottom-0 left-0 right-0 pl-6 w-full bg-black",
 } as const;
 
 export const styles = {
