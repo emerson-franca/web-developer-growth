@@ -12,4 +12,3 @@ export const CloseIcon = (props: React.SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-export default CloseIcon;

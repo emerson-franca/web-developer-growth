@@ -7,9 +7,9 @@ export const styles = {
   content: "max-w-[600px]",
   heading:
     "md:text-[3.25rem] text-5xl leading-[3.25rem] font-medium mb-5 text-center",
-  description: "text-gray-400 font-medium text-lg text-center",
+  description: "text-secondary font-medium text-lg text-center",
   tryNowSection: "py-10",
-  tryNowText: "text-sm text-gray-400 mb-3",
+  tryNowText: "text-sm text-secondary mb-3",
   playerWrapper:
     "flex items-center gap-4 p-4 bg-black/40 rounded-xl border border-[#262626]",
   playButton:
