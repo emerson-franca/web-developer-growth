@@ -11,6 +11,12 @@ import { getGlobalData, getPagesData } from "@/services/api";
 import { ContentSection } from "@/types/index";
 import { Metadata } from "next";
 
+interface PageProps {
+  params: {
+    slug: string[];
+  };
+}
+
 export async function generateStaticParams() {
   const pages = await getPagesData();
 
@@ -43,7 +49,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { slug: string[] } }) {
+export default async function Home({ params }: PageProps) {
   const { slug } = params;
   const locale = slug[0];
 
