@@ -3,6 +3,7 @@
 import { Logo, MenuIcon, CloseIcon, ArrowRight } from "@/components/Icons";
 import { useMenuToggle } from "@/hooks/useMenuToggle";
 import { useMaxHeight } from "@/hooks/useMaxHeight";
+import { useScroll } from "@/hooks/useScroll";
 import { cn } from "@/utils/cn";
 import { useCallback, useState } from "react";
 import { MenuLinkProps, HeaderProps, DropdownProps } from "./types";
@@ -140,22 +141,20 @@ const LoginLink = ({ loginItem }: { loginItem: MenuItem | undefined }) =>
 
 export const Header = ({ menu }: HeaderProps) => {
   const { isMenuOpen, toggleMenu } = useMenuToggle();
-
-  const loginItem = menu.find((item) => item.title === "Login");
-  const menuWithoutLogin = menu.filter((item) => item.title !== "Login");
+  const isScrolled = useScroll(50);
 
   return (
     <nav
-      className={styles.nav.wrapper}
+      className={cn(styles.nav.wrapper)}
       role="navigation"
       aria-label="Main Navigation"
     >
-      <div className={styles.nav.container}>
+      <div className={cn(styles.nav.container, isScrolled && "bg-black transition-colors duration-300")}>
         <div className={styles.nav.inner}>
           <Logo />
 
           <div className={styles.nav.desktopMenu}>
-            <MenuLinks menu={menuWithoutLogin} />
+            <MenuLinks menu={menu} />
           </div>
 
           <button
@@ -168,7 +167,9 @@ export const Header = ({ menu }: HeaderProps) => {
           </button>
 
           <div className={styles.nav.loginWrapper}>
-            <LoginLink loginItem={loginItem} />
+            <LoginLink
+              loginItem={menu.find((item) => item.title === "Login")}
+            />
           </div>
         </div>
 
@@ -179,9 +180,11 @@ export const Header = ({ menu }: HeaderProps) => {
           )}
         >
           <div className={styles.mobileMenu.wrapper}>
-            <MenuLinks menu={menuWithoutLogin} isMobile={true} />
+            <MenuLinks menu={menu} isMobile={true} />
             <div className={styles.mobileMenu.loginContainer}>
-              <LoginLink loginItem={loginItem} />
+              <LoginLink
+                loginItem={menu.find((item) => item.title === "Login")}
+              />
             </div>
           </div>
         </div>

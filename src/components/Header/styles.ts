@@ -7,7 +7,7 @@ const base = {
 const dropdown = {
   menu: `
     md:absolute md:left-0 md:mt-2 md:w-48 md:bg-black md:border 
-    md:border-gray-800 md:rounded-md md:shadow-lg md:transition-all md:duration-200
+    md:border-separator md:rounded-md md:shadow-lg md:transition-all md:duration-200
     max-h-[calc(90vh-4rem)] overflow-y-auto
     scrollbar scrollbar-thin scrollbar-track-gray-900 scrollbar-thumb-gray-600
     hover:scrollbar-thumb-gray-500
