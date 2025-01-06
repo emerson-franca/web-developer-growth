@@ -44,6 +44,7 @@ export const Footer = ({
         <LogoFooter />
         <div className={styles.helpText}>{helpText}</div>
         <div className={styles.content}>
+          <div className={styles.bgOverlay} />
           <div>
             <div>
               <LanguageSwitcher
