@@ -1,4 +1,4 @@
-import { Brands, Footer, Header, Hero, Modules } from "@/components";
+import { Brands, Footer, Header, Hero, Modules, Features } from "@/components";
 import type { GlobalData, PageData } from "@/types/index";
 
 async function getGlobalData(lang: string): Promise<GlobalData | null> {
@@ -105,6 +105,16 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             );
           case "sections.brands":
             return <Brands key={section.id} brands={section.brands} />;
+          case "sections.card-content-grid":
+            return (
+              <Features
+                key={section.id}
+                preTitle={section.preTitle}
+                title={section.title}
+                description={section.description}
+                cards={section.cards}
+              />
+            );
           case "sections.modules":
             return (
               <Modules
