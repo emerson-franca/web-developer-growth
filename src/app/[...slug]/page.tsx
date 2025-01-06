@@ -17,6 +17,10 @@ interface PageProps {
   };
 }
 
+type Props = {
+  params: Promise<{ slug: string[] }>;
+};
+
 export async function generateStaticParams() {
   const pages = await getPagesData();
 
@@ -27,10 +31,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { slug } = params;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
   const locale = slug[0];
 
   const globalData = await getGlobalData(locale);

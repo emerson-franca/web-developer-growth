@@ -45,19 +45,7 @@ export const Hero = ({ title, description, buttons }: HeroProps) => {
 
           <div className={styles.buttonsContainer}>
             {buttons?.map((button) => (
-              <Button
-                key={button.id}
-                appearance={button.appearance as "solid" | "ghost"}
-                color={button.color as "blue" | "white"}
-                size={button.size as "sm" | "md" | "lg"}
-                href={button.url}
-                text={button.text}
-                subText={button.subText}
-                fluid={button.fluid}
-                newTab={button.newTab}
-                startIcon={button.startIcon}
-                endIcon={button.endIcon}
-              />
+              <Button key={button.id} {...button} />
             ))}
           </div>
         </div>
