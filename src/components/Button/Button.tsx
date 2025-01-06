@@ -8,7 +8,7 @@ export const Button = ({
   appearance = "solid",
   size = "md",
   color = "blue",
-  href,
+  url,
   text,
   subText,
   fluid = false,
@@ -46,10 +46,10 @@ export const Button = ({
     </>
   );
 
-  if (href) {
+  if (url) {
     return (
       <Link
-        href={href}
+        href={url}
         className={baseClasses}
         target={newTab ? "_blank" : undefined}
         rel={newTab ? "noopener noreferrer" : undefined}
