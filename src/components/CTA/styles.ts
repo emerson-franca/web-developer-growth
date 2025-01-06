@@ -1,5 +1,5 @@
 export const styles = {
-  section: "py-20 px-6 text-center bg-black md:bg-[#212121]",
+  section: "md:py-20 px-6 text-center bg-black md:bg-[#212121]",
   container: "max-w-[742px] mx-auto ",
   title:
     "md:text-5xl font-medium md:leading-[3rem] mb-4 text-4xl leading-[2.5rem]",
