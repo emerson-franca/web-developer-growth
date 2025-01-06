@@ -7,44 +7,8 @@ import {
   Features,
   CTA,
 } from "@/components";
-import type { GlobalData, PageData } from "@/types/index";
-
-async function getGlobalData(lang: string): Promise<GlobalData | null> {
-  try {
-    const response = await fetch(
-      `http://localhost:4000/global?locale=${lang}`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch global data");
-    }
-
-    return response.json() as Promise<GlobalData>;
-  } catch (error) {
-    console.error("Error fetching global data:", error);
-    return null;
-  }
-}
-
-async function getPagesData(): Promise<PageData[] | null> {
-  try {
-    const response = await fetch(`http://localhost:4000/pages`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch page data");
-    }
-
-    return response.json() as Promise<PageData[]>;
-  } catch (error) {
-    console.error("Error fetching page data:", error);
-    return null;
-  }
-}
+import { getGlobalData, getPagesData } from "@/services/api";
+import { ContentSection } from "@/types/index";
 
 export async function generateStaticParams() {
   const pages = await getPagesData();
@@ -97,56 +61,30 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     );
   }
 
+  const renderContentSection = (section: ContentSection) => {
+    const components: Record<string, JSX.Element | null> = {
+      "sections.hero-video": (
+        <Hero
+          key={section.id}
+          title={section.title}
+          description={section.description}
+          buttons={section.buttons}
+        />
+      ),
+      "sections.brands": <Brands key={section.id} {...section} />,
+      "sections.card-content-grid": <Features key={section.id} {...section} />,
+      "sections.centered-cta": <CTA key={section.id} {...section} />,
+      "sections.modules": <Modules key={section.id} {...section} />,
+    };
+
+    return components[section.__component] || null;
+  };
+
   return (
     <main>
       <Header menu={globalData.menu} />
-      {pageData.contentSections?.map((section) => {
-        switch (section.__component) {
-          case "sections.hero-video":
-            return (
-              <Hero
-                key={section.id}
-                title={section.title}
-                description={section.description}
-                buttons={section.buttons}
-              />
-            );
-          case "sections.brands":
-            return <Brands key={section.id} brands={section.brands} />;
-          case "sections.card-content-grid":
-            return (
-              <Features
-                key={section.id}
-                preTitle={section.preTitle}
-                title={section.title}
-                description={section.description}
-                cards={section.cards}
-              />
-            );
-          case "sections.centered-cta":
-            return (
-              <CTA
-                key={section.id}
-                preTitle={section.preTitle}
-                title={section.title}
-                description={section.description}
-                buttons={section.buttons}
-              />
-            );
-          case "sections.modules":
-            return (
-              <Modules
-                key={section.id}
-                preTitle={section.preTitle}
-                title={section.title}
-                description={section.description}
-                cards={section.cards}
-              />
-            );
-          default:
-            return null;
-        }
-      })}
+      {pageData.contentSections?.map(renderContentSection)}
+
       <Footer
         helpText={globalData.helpText}
         social={globalData.social}

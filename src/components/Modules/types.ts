@@ -9,7 +9,6 @@ interface ModuleCard {
 }
 
 export interface ModulesProps {
-  theme?: "dark" | "light";
   preTitle?: string | null;
   title: string;
   description: string;

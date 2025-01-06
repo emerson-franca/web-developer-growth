@@ -6,7 +6,7 @@ export type Card = {
 };
 
 export type FeaturesProps = {
-  preTitle: string;
+  preTitle?: string;
   title: string;
   description: string;
   cards: Card[];

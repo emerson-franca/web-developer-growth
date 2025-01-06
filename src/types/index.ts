@@ -94,13 +94,17 @@ export interface CenteredCtaSection {
   buttons: Button[];
 }
 
-export type ContentSection =
-  | HeroSection
-  | BrandsSection
-  | CardContentGridSection
-  | ModulesSection
-  | CenteredCtaSection;
-
+export interface ContentSection {
+  id: number;
+  __component: string;
+  theme: string;
+  title: string;
+  description: string;
+  buttons: Button[];
+  brands: Brand[];
+  cards: Card[];
+  preTitle?: string;
+}
 export interface PageData {
   id: number;
   slug: string;
