@@ -32,13 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const globalData = await getGlobalData(locale);
 
   return {
-    title: globalData?.metadata.metaTitle || "Music API",
+    title: globalData?.metadata?.metaTitle || "Music API",
     description:
-      globalData?.metadata.metaDescription ||
+      globalData?.metadata?.metaDescription ||
       "A comprehensive suite of cutting-edge Complementary AI™ modules, tailored to empower businesses and developers.",
-    robots: globalData?.metadata.robots?.replace("_", ", ") || "index, follow",
-    openGraph: globalData?.metadata.shareImage
-      ? { images: [{ url: globalData.metadata.shareImage }] }
+    robots: globalData?.metadata?.robots?.replace("_", ", ") || "index, follow",
+    openGraph: globalData?.metadata?.shareImage
+      ? { images: [{ url: globalData?.metadata?.shareImage }] }
       : undefined,
   };
 }
@@ -53,10 +53,6 @@ export default async function Home({ params }: Props) {
   ]);
 
   if (!pages || !globalData) {
-    console.error("Debug - Data fetch failed:", {
-      pages: !!pages,
-      globalData: !!globalData,
-    });
     return (
       <div>
         <h1>Error Loading Page</h1>

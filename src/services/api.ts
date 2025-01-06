@@ -2,7 +2,9 @@ import type { GlobalData, PageData } from "@/types/index";
 
 export async function getGlobalData(lang: string): Promise<GlobalData | null> {
   try {
-    const response = await fetch(`http://localhost:4000/global?locale=${lang}`);
+    const response = await fetch(
+      `${process.env.URL}/api/global?locale=${encodeURIComponent(lang)}`
+    );
     if (!response.ok) {
       console.error("Failed to fetch global data");
       return null;
@@ -16,7 +18,7 @@ export async function getGlobalData(lang: string): Promise<GlobalData | null> {
 
 export async function getPagesData(): Promise<PageData[] | null> {
   try {
-    const response = await fetch(`http://localhost:4000/pages`);
+    const response = await fetch(`${process.env.URL}/api/pages`);
     if (!response.ok) {
       console.error("Failed to fetch page data");
       return null;
