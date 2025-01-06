@@ -1,4 +1,12 @@
-import { Brands, Footer, Header, Hero, Modules, Features } from "@/components";
+import {
+  Brands,
+  Footer,
+  Header,
+  Hero,
+  Modules,
+  Features,
+  CTA,
+} from "@/components";
 import type { GlobalData, PageData } from "@/types/index";
 
 async function getGlobalData(lang: string): Promise<GlobalData | null> {
@@ -113,6 +121,16 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
                 title={section.title}
                 description={section.description}
                 cards={section.cards}
+              />
+            );
+          case "sections.centered-cta":
+            return (
+              <CTA
+                key={section.id}
+                preTitle={section.preTitle}
+                title={section.title}
+                description={section.description}
+                buttons={section.buttons}
               />
             );
           case "sections.modules":
