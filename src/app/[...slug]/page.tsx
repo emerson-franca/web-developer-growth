@@ -9,6 +9,7 @@ import {
 } from "@/components";
 import { getGlobalData, getPagesData } from "@/services/api";
 import { ContentSection } from "@/types/index";
+import { Metadata } from "next";
 
 export async function generateStaticParams() {
   const pages = await getPagesData();
@@ -18,6 +19,28 @@ export async function generateStaticParams() {
   return pages.map((page) => ({
     slug: [page.locale, ...page.path.split("/").filter(Boolean)],
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string[] };
+}): Promise<Metadata> {
+  const { slug } = params;
+  const locale = slug[0];
+
+  const globalData = await getGlobalData(locale);
+
+  return {
+    title: globalData?.metadata.metaTitle || "Music API",
+    description:
+      globalData?.metadata.metaDescription ||
+      "A comprehensive suite of cutting-edge Complementary AI™ modules, tailored to empower businesses and developers.",
+    robots: globalData?.metadata.robots?.replace("_", ", ") || "index, follow",
+    openGraph: globalData?.metadata.shareImage
+      ? { images: [{ url: globalData.metadata.shareImage }] }
+      : undefined,
+  };
 }
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
