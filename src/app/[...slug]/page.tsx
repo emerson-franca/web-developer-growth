@@ -11,12 +11,6 @@ import { getGlobalData, getPagesData } from "@/services/api";
 import { ContentSection } from "@/types/index";
 import { Metadata } from "next";
 
-interface PageProps {
-  params: {
-    slug: string[];
-  };
-}
-
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
@@ -49,8 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function Home({ params }: PageProps) {
-  const { slug } = params;
+export default async function Home({ params }: Props) {
+  const { slug } = await params;
   const locale = slug[0];
 
   const [globalData, pages] = await Promise.all([
