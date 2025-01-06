@@ -8,7 +8,7 @@ export const styles = {
   carouselWrapper: "overflow-hidden relative touch-pan-x",
   carousel:
     "flex will-change-transform cursor-grab active:cursor-grabbing select-none touch-none",
-  card: "sm:w-full sm:ml-0 ml-2 w-[95.6%] flex-shrink-0 w-full md:w-1/2 lg:w-1/3 transition-all duration-300",
+  card: "w-full flex-shrink-0 w-full md:w-1/2 lg:w-1/3 transition-all duration-300",
   cardInner:
     "bg-[#1A1A1A] rounded-2xl p-5 flex flex-col h-full group hover:bg-[#262626] transition-colors mx-3 touch-none",
   cardTitle: "text-xl font-medium mb-2.5",
