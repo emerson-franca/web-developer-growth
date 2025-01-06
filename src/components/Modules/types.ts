@@ -1,13 +1,11 @@
 import type { Button } from "@/types/index";
 
-interface ModuleButton extends Button {}
-
 interface ModuleCard {
   id: number;
   title: string;
   description: string;
   icon?: string;
-  button?: ModuleButton;
+  button?: Button;
 }
 
 export interface ModulesProps {

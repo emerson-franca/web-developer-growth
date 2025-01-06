@@ -1,5 +1,5 @@
 export const styles = {
-  section: "py-24 bg-black",
+  section: "pb-20 bg-black",
   container: "max-w-7xl mx-auto px-6",
   header: "w-full mx-auto mb-16 flex justify-between",
   titleWrapper: "w-full md:w-[585px]",

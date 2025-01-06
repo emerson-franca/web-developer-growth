@@ -1,4 +1,4 @@
-import { PlayIcon } from "@/components/Icons";
+import { Play } from "@/components/Icons";
 import { HeroProps } from "./types";
 import { Button } from "@/components/Button";
 import { styles } from "./styles";
@@ -21,7 +21,7 @@ export const Hero = ({ title, description, buttons }: HeroProps) => {
                 aria-label="Play sample track"
                 className={styles.playButton}
               >
-                <PlayIcon width={20} height={20} />
+                <Play width={20} height={20} />
                 <span className="sr-only">Play sample track</span>
               </button>
 
